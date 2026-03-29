@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — The Secret Place</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <span class="sparkle">✦</span>
+      <span>The Secret Place</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html" class="active">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="prose">
+
+      <h1>Privacy Policy</h1>
+      <span class="updated">Last updated: March 28, 2026</span>
+
+      <p>Your privacy matters to us. This policy explains what data The Secret Place collects, how it is used, and what is never collected. We have built this app with a minimal data footprint by design.</p>
+
+      <h2>Information We Collect</h2>
+      <p>The Secret Place stores the following data <strong>locally on your device only</strong>, using Apple's standard UserDefaults system:</p>
+      <ul>
+        <li>Your first name (for personalized greetings)</li>
+        <li>Your selected meditation intention</li>
+        <li>Your favorite meditations</li>
+        <li>Session completion history and total minutes</li>
+        <li>Daily reminder time preference</li>
+        <li>Daily insight refresh counts (to enforce the daily limit)</li>
+        <li>Journal entries you write after sessions</li>
+      </ul>
+      <p>None of this data is transmitted to our servers or any third party. It lives entirely on your device and is removed if you delete the app.</p>
+
+      <h2>Daily Insights (AI Feature)</h2>
+      <p>The app's "Learn" tab generates a daily spiritual insight using the Anthropic Claude AI model. When you request an insight, your selected meditation category and the current date are sent to a secure proxy server (Cloudflare Workers) which forwards the request to Anthropic. <strong>No personally identifiable information is sent.</strong> We do not log or store the category selections on our servers. Responses are cached locally on your device for the day.</p>
+
+      <h2>Meditation Catalog</h2>
+      <p>The app fetches the meditation catalog (titles, descriptions, audio URLs) from Supabase, our backend database. This is a read-only request that does not transmit any personal information from your device. No account is required to browse or play meditations.</p>
+
+      <h2>Apple HealthKit</h2>
+      <p>If you enable the HealthKit integration in Settings, completed meditation sessions are written to Apple Health as Mindful Minutes. This data is governed entirely by Apple's HealthKit privacy framework. We do not access, read, or transmit any HealthKit data to our servers.</p>
+
+      <h2>Apple Health and Fitness Data</h2>
+      <p>We access HealthKit only to <strong>write</strong> mindfulness session data when you explicitly enable this feature. We never read health data from HealthKit, and we never share it with third parties.</p>
+
+      <h2>Analytics and Tracking</h2>
+      <p><strong>We do not use any analytics, tracking SDKs, or advertising frameworks.</strong> There are no third-party trackers in this app. We do not collect crash reports through third-party services. Standard Apple crash reporting through the App Store may apply per Apple's own privacy policy.</p>
+
+      <h2>Audio Files</h2>
+      <p>Bundled audio files are stored locally in the app. Cloud-hosted audio files (uploaded weekly by our content team) are downloaded from Supabase Storage to your device cache when you play them. No personal data is transmitted during this download.</p>
+
+      <h2>Children's Privacy</h2>
+      <p>The Secret Place is not directed at children under 13. We do not knowingly collect any personal information from children.</p>
+
+      <h2>Data Retention</h2>
+      <p>All locally stored data is retained until you delete the app or reset your data in Settings. We do not retain any user data on our servers because we do not collect it.</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated date. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+      <h2>Contact</h2>
+      <p>If you have any questions about this privacy policy, please contact us at <a href="mailto:support@thesecretplaceapp.com">support@thesecretplaceapp.com</a>.</p>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 The Secret Place. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms of Use</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
