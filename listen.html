@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>Listen Free — Sample Meditation | The Secret Place</title>
+  <meta name="description" content="Try a free guided Christian meditation. Listen to a sample session from The Secret Place app — breathwork, prayer, and stillness for believers." />
+  <meta name="keywords" content="free christian meditation, free guided meditation, sample meditation, breathwork meditation, christian mindfulness free" />
+  <link rel="canonical" href="https://stepdugas.github.io/the-secret-place-site/listen.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stepdugas.github.io/the-secret-place-site/listen.html" />
+  <meta property="og:title" content="Listen Free — Sample Meditation" />
+  <meta property="og:description" content="Try a free guided Christian meditation from The Secret Place." />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <span class="sparkle">✦</span>
+      <span>The Secret Place</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="selah.html">Selah</a></li>
+      <li><a href="listen.html" class="active">Listen</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="listen-page">
+
+      <!-- Header -->
+      <div class="timer-header">
+        <p class="hero-eyebrow">Free Sample</p>
+        <h1 class="timer-title">Try a Session</h1>
+        <p class="timer-desc">This is a real meditation from the app, free for you to try. No account needed.</p>
+      </div>
+
+      <!-- Player Card -->
+      <div class="player-card">
+
+        <!-- Meditation info -->
+        <div class="player-meta">
+          <div class="player-category">💨 Breathwork</div>
+          <h2 class="player-title">Breathe for 1 Minute</h2>
+          <p class="player-description">A quick reset. One focused minute of breathing to clear your head and step into your day with calm. Written and recorded by Cassia.</p>
+          <div class="player-duration-badge">1 min · Free sample</div>
+        </div>
+
+        <!-- Waveform decoration -->
+        <div class="waveform-bars" id="waveformBars">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <!-- Audio element — replace src with your hosted audio file -->
+        <audio id="meditationAudio" preload="metadata">
+          <source src="audio/breathe1Minute.mp3" type="audio/mpeg" />
+        </audio>
+
+        <!-- Progress -->
+        <div class="progress-wrap">
+          <span class="progress-time" id="currentTime">0:00</span>
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-thumb" id="progressThumb"></div>
+          </div>
+          <span class="progress-time" id="totalTime">1:00</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="player-controls">
+          <button class="player-btn-rewind" id="rewindBtn" title="Rewind 10s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 .49-3.5"></path>
+              <text x="9" y="15" font-size="6" fill="currentColor" stroke="none" font-family="sans-serif" font-weight="bold">10</text>
+            </svg>
+          </button>
+          <button class="player-btn-play" id="playBtn">
+            <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21"></polygon>
+            </svg>
+            <svg id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </button>
+          <button class="player-btn-rewind" id="forwardBtn" title="Forward 10s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-.49-3.5"></path>
+              <text x="9" y="15" font-size="6" fill="currentColor" stroke="none" font-family="sans-serif" font-weight="bold">10</text>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Error state (shown if audio can't load) -->
+        <div class="audio-error" id="audioError" style="display:none;">
+          <p>This sample isn't available in the browser yet — download the app to listen.</p>
+          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener" style="margin-top:14px;display:inline-flex;">Download on the App Store</a>
+        </div>
+
+      </div>
+
+      <!-- More sessions teaser -->
+      <div class="more-sessions">
+        <p class="section-label" style="text-align:center;margin-bottom:20px;">More Inside the App</p>
+        <div class="session-teaser-grid">
+          <div class="session-teaser">
+            <span class="session-teaser-icon">☀️</span>
+            <div>
+              <p class="session-teaser-title">Sunlight Meditation</p>
+              <p class="session-teaser-meta">Morning · 11 min</p>
+            </div>
+            <span class="session-teaser-lock">🔒</span>
+          </div>
+          <div class="session-teaser">
+            <span class="session-teaser-icon">🙏</span>
+            <div>
+              <p class="session-teaser-title">Meeting Jesus by the River</p>
+              <p class="session-teaser-meta">Prayer · 9 min</p>
+            </div>
+            <span class="session-teaser-lock">🔒</span>
+          </div>
+          <div class="session-teaser">
+            <span class="session-teaser-icon">🌙</span>
+            <div>
+              <p class="session-teaser-title">Permission to Rest</p>
+              <p class="session-teaser-meta">Sleep · 11 min</p>
+            </div>
+            <span class="session-teaser-lock">🔒</span>
+          </div>
+          <div class="session-teaser">
+            <span class="session-teaser-icon">🌿</span>
+            <div>
+              <p class="session-teaser-title">Brain-Heart Coherence</p>
+              <p class="session-teaser-meta">Stress Relief · 7 min</p>
+            </div>
+            <span class="session-teaser-lock">🔒</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="timer-app-cta">
+        <p>23+ sessions across 8 categories. New meditations added regularly by Cassia.</p>
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">Start Free 7-Day Trial</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 The Secret Place. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms of Use</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    const audio       = document.getElementById('meditationAudio');
+    const playBtn     = document.getElementById('playBtn');
+    const playIcon    = document.getElementById('playIcon');
+    const pauseIcon   = document.getElementById('pauseIcon');
+    const progressFill= document.getElementById('progressFill');
+    const progressThumb=document.getElementById('progressThumb');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeEl=document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const waveform    = document.getElementById('waveformBars');
+    const errorEl     = document.getElementById('audioError');
+    let   animFrame   = null;
+
+    // Detect if audio file is available
+    audio.addEventListener('error', () => {
+      errorEl.style.display = 'block';
+      playBtn.disabled = true;
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      totalTimeEl.textContent = formatTime(audio.duration);
+    });
+
+    // Play / Pause
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().catch(() => { errorEl.style.display = 'block'; });
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', () => {
+      playIcon.style.display  = 'none';
+      pauseIcon.style.display = 'block';
+      waveform.classList.add('playing');
+      animateProgress();
+    });
+
+    audio.addEventListener('pause', () => {
+      playIcon.style.display  = 'block';
+      pauseIcon.style.display = 'none';
+      waveform.classList.remove('playing');
+      cancelAnimationFrame(animFrame);
+    });
+
+    audio.addEventListener('ended', () => {
+      playIcon.style.display  = 'block';
+      pauseIcon.style.display = 'none';
+      waveform.classList.remove('playing');
+      progressFill.style.width = '100%';
+      progressThumb.style.left = '100%';
+      cancelAnimationFrame(animFrame);
+    });
+
+    // Rewind / Forward
+    document.getElementById('rewindBtn').addEventListener('click', () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+    document.getElementById('forwardBtn').addEventListener('click', () => {
+      audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10);
+    });
+
+    // Scrub
+    progressBar.addEventListener('click', e => {
+      if (!audio.duration) return;
+      const rect = progressBar.getBoundingClientRect();
+      const pct  = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pct * audio.duration;
+    });
+
+    function animateProgress() {
+      if (!audio.duration) { animFrame = requestAnimationFrame(animateProgress); return; }
+      const pct = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = pct + '%';
+      progressThumb.style.left = pct + '%';
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      animFrame = requestAnimationFrame(animateProgress);
+    }
+
+    function formatTime(s) {
+      if (!s || isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${sec}`;
+    }
+  </script>
+
+</body>
+</html>

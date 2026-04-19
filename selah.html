@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>Selah Timer — Free Meditation Timer | The Secret Place</title>
+  <meta name="description" content="Selah means pause and rest in Hebrew. A free browser-based meditation timer with ambient sounds and a gentle bell. No download required." />
+  <meta name="keywords" content="free meditation timer, selah, silent meditation, online timer, christian meditation timer, ambient meditation" />
+  <link rel="canonical" href="https://stepdugas.github.io/the-secret-place-site/selah.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stepdugas.github.io/the-secret-place-site/selah.html" />
+  <meta property="og:title" content="Selah — Free Meditation Timer" />
+  <meta property="og:description" content="Hebrew for pause and rest. A free browser-based meditation timer with ambient sounds." />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <span class="sparkle">✦</span>
+      <span>The Secret Place</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="selah.html" class="active">Selah</a></li>
+      <li><a href="listen.html">Listen</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="timer-page">
+
+      <!-- Header -->
+      <div class="timer-header">
+        <p class="hero-eyebrow">Free to Use</p>
+        <h1 class="timer-title">Selah</h1>
+        <p class="timer-subtitle">Hebrew for <em>pause and rest</em></p>
+        <p class="timer-desc">Sometimes you don't need words. Set your time, choose a sound, and simply be still.</p>
+      </div>
+
+      <!-- Timer Card -->
+      <div class="timer-card">
+
+        <!-- Duration Picker -->
+        <div class="picker-group">
+          <p class="picker-label">Duration</p>
+          <div class="picker-pills" id="durationPicker">
+            <button class="pill" data-value="5">5 min</button>
+            <button class="pill active" data-value="10">10 min</button>
+            <button class="pill" data-value="15">15 min</button>
+            <button class="pill" data-value="20">20 min</button>
+            <button class="pill" data-value="30">30 min</button>
+            <button class="pill" data-value="45">45 min</button>
+            <button class="pill" data-value="60">60 min</button>
+          </div>
+        </div>
+
+        <!-- Sound Picker -->
+        <div class="picker-group">
+          <p class="picker-label">Ambient Sound</p>
+          <div class="picker-pills" id="soundPicker">
+            <button class="pill active" data-value="none">Silence</button>
+            <button class="pill" data-value="rain">Rain</button>
+            <button class="pill" data-value="ocean">Ocean</button>
+            <button class="pill" data-value="wind">Wind</button>
+            <button class="pill" data-value="fire">Fire</button>
+          </div>
+        </div>
+
+        <!-- Ring -->
+        <div class="timer-ring-wrap">
+          <svg class="timer-ring-svg" viewBox="0 0 220 220">
+            <circle class="ring-bg" cx="110" cy="110" r="96"/>
+            <circle class="ring-progress" id="ringProgress" cx="110" cy="110" r="96"/>
+          </svg>
+          <div class="timer-ring-inner">
+            <div class="timer-display" id="timerDisplay">10:00</div>
+            <div class="timer-state" id="timerState">Ready</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="timer-controls">
+          <button class="timer-btn-secondary" id="resetBtn" disabled>Reset</button>
+          <button class="timer-btn-primary" id="startBtn">Begin</button>
+        </div>
+
+      </div>
+
+      <!-- Completion overlay (hidden) -->
+      <div class="timer-completion" id="completionOverlay" style="display:none;">
+        <div class="completion-inner">
+          <div class="completion-glow"></div>
+          <p class="completion-icon">✦</p>
+          <h2 class="completion-title">Well done.</h2>
+          <p class="completion-body">You took time to be still. That matters more than you know.</p>
+          <button class="btn-primary" id="completionRestart" style="margin-top:8px;">Begin Again</button>
+          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-secondary" target="_blank" rel="noopener" style="margin-top:12px;">Get the Full App</a>
+        </div>
+      </div>
+
+      <!-- App CTA -->
+      <div class="timer-app-cta">
+        <p>Want guided meditations, more ambient options, and a daily streak? Download the full app.</p>
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">Download Free on iOS</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 The Secret Place. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms of Use</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // ─── State ───────────────────────────────────────────────
+    let selectedDuration = 10; // minutes
+    let selectedSound    = 'none';
+    let totalSeconds     = 600;
+    let remainingSeconds = 600;
+    let timerInterval    = null;
+    let isRunning        = false;
+
+    // Web Audio
+    let audioCtx    = null;
+    let noiseSource = null;
+    let noiseGain   = null;
+    let lfoNode     = null;
+
+    // SVG ring
+    const RADIUS       = 96;
+    const CIRCUMFERENCE = 2 * Math.PI * RADIUS; // ~603.2
+
+    const ringEl    = document.getElementById('ringProgress');
+    const displayEl = document.getElementById('timerDisplay');
+    const stateEl   = document.getElementById('timerState');
+    const startBtn  = document.getElementById('startBtn');
+    const resetBtn  = document.getElementById('resetBtn');
+    const overlay   = document.getElementById('completionOverlay');
+
+    ringEl.style.strokeDasharray  = CIRCUMFERENCE;
+    ringEl.style.strokeDashoffset = 0;
+
+    // ─── Duration picker ─────────────────────────────────────
+    document.getElementById('durationPicker').addEventListener('click', e => {
+      const btn = e.target.closest('.pill');
+      if (!btn || isRunning) return;
+      document.querySelectorAll('#durationPicker .pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      selectedDuration = parseInt(btn.dataset.value);
+      totalSeconds     = selectedDuration * 60;
+      remainingSeconds = totalSeconds;
+      updateDisplay();
+      updateRing(1);
+      stateEl.textContent = 'Ready';
+    });
+
+    // ─── Sound picker ─────────────────────────────────────────
+    document.getElementById('soundPicker').addEventListener('click', e => {
+      const btn = e.target.closest('.pill');
+      if (!btn) return;
+      document.querySelectorAll('#soundPicker .pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      selectedSound = btn.dataset.value;
+      if (isRunning) {
+        stopAmbient();
+        if (selectedSound !== 'none') startAmbient(selectedSound);
+      }
+    });
+
+    // ─── Start / Pause ────────────────────────────────────────
+    startBtn.addEventListener('click', () => {
+      if (isRunning) {
+        pauseTimer();
+      } else {
+        startTimer();
+      }
+    });
+
+    resetBtn.addEventListener('click', resetTimer);
+    document.getElementById('completionRestart').addEventListener('click', () => {
+      overlay.style.display = 'none';
+      resetTimer();
+    });
+
+    function startTimer() {
+      if (remainingSeconds <= 0) return;
+      isRunning = true;
+      startBtn.textContent = 'Pause';
+      resetBtn.disabled    = false;
+      stateEl.textContent  = 'In session';
+
+      initAudioCtx();
+      if (selectedSound !== 'none') startAmbient(selectedSound);
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateDisplay();
+        updateRing(remainingSeconds / totalSeconds);
+        if (remainingSeconds <= 0) finishTimer();
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      startBtn.textContent = 'Resume';
+      stateEl.textContent  = 'Paused';
+      stopAmbient();
+    }
+
+    function resetTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      stopAmbient();
+      remainingSeconds     = totalSeconds;
+      startBtn.textContent = 'Begin';
+      resetBtn.disabled    = true;
+      stateEl.textContent  = 'Ready';
+      overlay.style.display = 'none';
+      updateDisplay();
+      updateRing(1);
+    }
+
+    function finishTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      stopAmbient();
+      playBell();
+      stateEl.textContent  = 'Complete';
+      startBtn.textContent = 'Begin';
+      setTimeout(() => { overlay.style.display = 'flex'; }, 1800);
+    }
+
+    // ─── Display ─────────────────────────────────────────────
+    function updateDisplay() {
+      const m = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+      const s = (remainingSeconds % 60).toString().padStart(2, '0');
+      displayEl.textContent = `${m}:${s}`;
+    }
+
+    function updateRing(fraction) {
+      const offset = CIRCUMFERENCE * (1 - fraction);
+      ringEl.style.strokeDashoffset = offset;
+    }
+
+    // ─── Web Audio ───────────────────────────────────────────
+    function initAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function startAmbient(type) {
+      if (!audioCtx) return;
+      stopAmbient();
+
+      const bufferSize = audioCtx.sampleRate * 3;
+      const buffer     = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data       = buffer.getChannelData(0);
+
+      // Generate pink noise
+      let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+      for (let i = 0; i < bufferSize; i++) {
+        const w = Math.random() * 2 - 1;
+        b0 = 0.99886*b0 + w*0.0555179; b1 = 0.99332*b1 + w*0.0750759;
+        b2 = 0.96900*b2 + w*0.1538520; b3 = 0.86650*b3 + w*0.3104856;
+        b4 = 0.55000*b4 + w*0.5329522; b5 = -0.7616*b5 - w*0.0168980;
+        data[i] = (b0+b1+b2+b3+b4+b5+b6 + w*0.5362) * 0.11;
+        b6 = w * 0.115926;
+      }
+
+      noiseSource = audioCtx.createBufferSource();
+      noiseSource.buffer = buffer;
+      noiseSource.loop   = true;
+
+      noiseGain = audioCtx.createGain();
+
+      // Filter shapes per sound type
+      const filter = audioCtx.createBiquadFilter();
+
+      if (type === 'rain') {
+        filter.type            = 'bandpass';
+        filter.frequency.value = 1200;
+        filter.Q.value         = 0.6;
+        noiseGain.gain.value   = 0.55;
+      } else if (type === 'ocean') {
+        filter.type            = 'lowpass';
+        filter.frequency.value = 600;
+        filter.Q.value         = 0.8;
+        noiseGain.gain.value   = 0.6;
+        // LFO for wave effect
+        lfoNode = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+        lfoGain.gain.value        = 0.3;
+        lfoNode.frequency.value   = 0.18;
+        lfoNode.connect(lfoGain);
+        lfoGain.connect(noiseGain.gain);
+        lfoNode.start();
+      } else if (type === 'wind') {
+        filter.type            = 'bandpass';
+        filter.frequency.value = 400;
+        filter.Q.value         = 1.5;
+        noiseGain.gain.value   = 0.45;
+      } else if (type === 'fire') {
+        filter.type            = 'lowpass';
+        filter.frequency.value = 800;
+        filter.Q.value         = 0.4;
+        noiseGain.gain.value   = 0.4;
+      }
+
+      noiseSource.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(audioCtx.destination);
+
+      // Fade in
+      noiseGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      noiseGain.gain.linearRampToValueAtTime(
+        type === 'rain' ? 0.55 : type === 'ocean' ? 0.6 : type === 'wind' ? 0.45 : 0.4,
+        audioCtx.currentTime + 2
+      );
+
+      noiseSource.start();
+    }
+
+    function stopAmbient() {
+      if (noiseSource) { try { noiseSource.stop(); } catch(e){} noiseSource = null; }
+      if (lfoNode)     { try { lfoNode.stop();     } catch(e){} lfoNode = null; }
+      noiseGain = null;
+    }
+
+    function playBell() {
+      if (!audioCtx) return;
+      // Layered partials for a richer bell tone
+      [[432, 1.0], [864, 0.4], [1296, 0.2]].forEach(([freq, vol]) => {
+        const osc  = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type             = 'sine';
+        osc.frequency.value  = freq;
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(vol * 0.5, audioCtx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 5);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 5.5);
+      });
+    }
+
+    // Init display
+    updateDisplay();
+  </script>
+
+</body>
+</html>

@@ -3,8 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Secret Place — Christian Meditation App</title>
-  <meta name="description" content="A peaceful space for Christian meditation, breathwork, prayer, and daily spiritual insights. Available on the App Store." />
+
+  <!-- Primary SEO -->
+  <title>The Secret Place — Christian Meditation App for iOS</title>
+  <meta name="description" content="Guided Christian meditations for sleep, anxiety, breathwork, and prayer. Built for believers who need a moment to breathe. Free 7-day trial on iOS." />
+  <meta name="keywords" content="christian meditation app, guided meditation, prayer app, sleep meditation, breathwork, bible meditation, faith-based meditation, anxiety relief, christian mindfulness, iOS meditation app" />
+  <link rel="canonical" href="https://stepdugas.github.io/the-secret-place-site/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stepdugas.github.io/the-secret-place-site/" />
+  <meta property="og:title" content="The Secret Place — Christian Meditation App" />
+  <meta property="og:description" content="Guided Christian meditations for sleep, anxiety, breathwork, and prayer. Free 7-day trial on iOS." />
+  <meta property="og:site_name" content="The Secret Place" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The Secret Place — Christian Meditation App" />
+  <meta name="twitter:description" content="Guided Christian meditations for sleep, breathwork, and prayer. Free 7-day trial on iOS." />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "The Secret Place Meditation App",
+    "operatingSystem": "iOS",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free 7-day trial, then $4.99/month"
+    },
+    "description": "Guided Christian meditations for sleep, anxiety, breathwork, and prayer. Built for believers who need a moment to breathe.",
+    "author": {
+      "@type": "Person",
+      "name": "Stephanie Dugas"
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,9 +55,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="selah.html">Selah</a></li>
+      <li><a href="listen.html">Listen</a></li>
       <li><a href="support.html">Support</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
     </ul>
   </nav>
 
@@ -28,12 +67,12 @@
     <div class="hero">
       <p class="hero-eyebrow">Now available on the App Store</p>
       <h1>Find stillness.<br><em>Find peace.</em></h1>
-      <p>The Secret Place is a Christian meditation app built for daily moments of quiet — guided breathwork, prayer, Scripture contemplation, sleep soundscapes, and AI-powered spiritual insights.</p>
+      <p>The Secret Place is a Christian meditation app built for daily moments of quiet — guided breathwork, prayer, Scripture contemplation, sleep soundscapes, and a silent Selah timer.</p>
       <div class="hero-cta">
-        <a href="#" class="btn-primary">
-          &#8659; Download on the App Store
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">
+          ⬇ Download on the App Store
         </a>
-        <a href="support.html" class="btn-secondary">Get Support</a>
+        <a href="listen.html" class="btn-secondary">Try a Free Session</a>
       </div>
     </div>
 
@@ -43,7 +82,7 @@
     <section>
       <p class="section-label">What's Inside</p>
       <h2 class="section-title">Everything you need for a daily practice</h2>
-      <p class="section-body">23+ guided sessions across 8 categories, new meditations added weekly by Cassia — a meditation writer and musician who records every track by hand.</p>
+      <p class="section-body">23+ guided sessions across 8 categories, new meditations added regularly by Cassia — a meditation writer and musician who records every track by hand.</p>
 
       <div class="feature-grid">
         <div class="feature-card">
@@ -77,14 +116,39 @@
           <p>Scripture-based contemplative sessions rooted in Christian tradition. Come as you are.</p>
         </div>
         <div class="feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3>Selah Timer</h3>
+          <p>Set a silent timer with optional ambient sound. Pause, breathe, and be still — no words required.</p>
+        </div>
+        <div class="feature-card">
           <div class="feature-icon">📖</div>
           <h3>Daily Insights</h3>
           <p>A fresh spiritual insight each day, tailored to the category you're practicing — science-backed and Scripture-rooted.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">✍️</div>
-          <h3>Reflection Journal</h3>
-          <p>After each session, capture what came up. Revisit your reflections anytime in your personal journal.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Selah callout -->
+    <section class="selah-callout">
+      <div class="selah-callout-inner">
+        <div>
+          <p class="section-label">Free to Try</p>
+          <h2 class="section-title" style="margin-bottom:12px;">Selah — Hebrew for <em style="color:var(--gold);font-style:italic;">pause and rest</em></h2>
+          <p class="section-body">Sometimes you don't need words. Just time. The Selah timer lets you sit in silence with gentle ambient sound and a soft bell at the end. Try it free right here in your browser.</p>
+          <a href="selah.html" class="btn-primary" style="margin-top:28px;display:inline-flex;">Open Selah Timer</a>
+        </div>
+        <div class="selah-preview">
+          <div class="selah-ring-preview">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(184,169,212,0.12)" stroke-width="6"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--gold)" stroke-width="6"
+                stroke-dasharray="326.7" stroke-dashoffset="82"
+                stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="selah-ring-label">10:00</div>
+          </div>
         </div>
       </div>
     </section>
@@ -97,7 +161,7 @@
       <h2 class="section-title">Built for real moments of quiet</h2>
       <p class="section-body">The Secret Place was created by Stephanie Dugas, an indie iOS developer, and Cassia — the meditation writer and musician behind every recording. All audio is original, written and recorded by hand. No stock tracks, no filler content.</p>
       <br/>
-      <p class="section-body">New meditations are added weekly as Cassia creates them. Categories expand over time — Affirmations and Mental Training are coming soon.</p>
+      <p class="section-body">New meditations are added regularly as Cassia creates them. Categories expand over time — Affirmations and Mental Training are coming soon.</p>
     </section>
 
     <div class="divider"></div>
@@ -106,8 +170,11 @@
     <section style="text-align: center;">
       <p class="section-label">Get Started</p>
       <h2 class="section-title">Your secret place is waiting.</h2>
-      <p class="section-body" style="margin: 0 auto 36px;">Download once, use forever. No subscriptions, no ads, no noise.</p>
-      <a href="#" class="btn-primary">Download on the App Store</a>
+      <p class="section-body" style="margin: 0 auto 36px;">Free 7-day trial, then $4.99/month. No ads, no noise.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">Download on the App Store</a>
+        <a href="listen.html" class="btn-secondary">Try a Free Session First</a>
+      </div>
     </section>
 
   </div>
