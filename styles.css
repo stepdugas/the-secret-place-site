@@ -782,15 +782,61 @@ footer p { font-size: 13px; color: var(--muted); }
 .session-teaser-meta  { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .session-teaser-lock  { font-size: 14px; opacity: 0.4; }
 
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  nav { padding: 0 18px; }
-  .nav-links a { padding: 6px 10px; font-size: 13px; }
-  .hero { padding: 70px 20px 60px; }
-  footer { flex-direction: column; align-items: flex-start; }
-  .timer-card { padding: 28px 18px; }
-  .player-card { padding: 28px 18px 20px; }
-  .timer-display { font-size: 38px; }
+/* ── Responsive — Tablet ── */
+@media (max-width: 768px) {
   .selah-callout-inner { flex-direction: column; gap: 32px; }
+}
+
+/* ── Responsive — Mobile ── */
+@media (max-width: 600px) {
+  /* Nav: smaller text, tighter padding so 4 links fit */
+  nav { padding: 0 14px; }
+  .nav-brand span:last-child { display: none; } /* hide text, keep sparkle brand mark */
+  .nav-links { gap: 2px; }
+  .nav-links a { padding: 6px 10px; font-size: 13px; }
+
+  /* Hero */
+  .hero { padding: 70px 20px 60px; }
+  .hero p { font-size: 16px; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+
+  /* Sections */
+  section { padding: 52px 20px; }
+
+  /* Feature grid: single column */
+  .feature-grid { grid-template-columns: 1fr; }
+
+  /* Selah callout */
+  .selah-callout { padding: 52px 20px; }
+  .selah-callout-inner { flex-direction: column; gap: 28px; }
   .selah-preview { display: none; }
+
+  /* Timer page */
+  .timer-page { padding: 52px 16px 64px; }
+  .timer-card { padding: 24px 16px; gap: 24px; }
+  .timer-ring-wrap { width: 190px; height: 190px; }
+  .timer-ring-svg { width: 190px; height: 190px; }
+  .timer-display { font-size: 36px; }
+  .timer-controls { gap: 10px; }
+  .timer-btn-primary { padding: 13px 28px; }
+  .pill { padding: 7px 13px; font-size: 12px; }
+
+  /* Player page */
+  .listen-page { padding: 52px 16px 64px; }
+  .player-card { padding: 24px 16px 18px; gap: 20px; }
+  .player-title { font-size: 22px; }
+  .player-controls { gap: 14px; }
+
+  /* Footer */
+  footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .footer-links { flex-wrap: wrap; gap: 14px; }
+}
+
+/* ── Responsive — Very small (iPhone SE) ── */
+@media (max-width: 380px) {
+  .nav-links a { padding: 5px 8px; font-size: 12px; }
+  .timer-ring-wrap { width: 170px; height: 170px; }
+  .timer-ring-svg  { width: 170px; height: 170px; }
+  .timer-display { font-size: 32px; }
 }
