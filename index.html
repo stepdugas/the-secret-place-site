@@ -76,19 +76,17 @@
       </div>
     </div>
 
-    <!-- Morph Gallery -->
-    <div class="morph-gallery" id="morphGallery">
-      <div class="morph-sticky">
+    <!-- Split Scroll Section -->
+    <div class="split-scroll" id="splitScroll">
 
-        <!-- Morphing frame — shape changes with each step -->
+      <!-- Left: sticky morphing visual -->
+      <div class="split-left">
         <div class="morph-frame" id="morphFrame">
 
-          <!-- Step 0: App icon -->
           <div class="morph-slide active" data-step="0">
             <img src="images/appicon.png" class="morph-icon-img" alt="The Secret Place app icon" />
           </div>
 
-          <!-- Step 1: Prayer -->
           <div class="morph-slide" data-step="1">
             <div class="morph-prayer">
               <span class="morph-emoji">🙏</span>
@@ -97,39 +95,60 @@
             </div>
           </div>
 
-          <!-- Step 2: Content -->
           <div class="morph-slide" data-step="2">
-            <div class="morph-content">
-              <p class="morph-content-count">23+ guided sessions</p>
-              <div class="morph-cats">
-                <span>☀️ Morning</span>
-                <span>🙏 Prayer</span>
-                <span>🌙 Sleep</span>
-                <span>💨 Breathwork</span>
-                <span>🌿 Stress Relief</span>
-                <span>🌊 Soundscapes</span>
-              </div>
-              <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-                 class="btn-primary morph-dl-btn" target="_blank" rel="noopener">
-                Start Free Trial
-              </a>
+            <div class="morph-prayer">
+              <img src="images/bible-coffeecup.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Scripture and prayer" />
             </div>
           </div>
 
         </div>
 
-        <!-- Label below frame -->
-        <div class="morph-label-wrap">
-          <p class="morph-label active" data-step="0">Your daily sanctuary</p>
-          <p class="morph-label"        data-step="1">A place of prayer &amp; stillness</p>
-          <p class="morph-label"        data-step="2">Everything you need</p>
-        </div>
-
-        <!-- Dots -->
-        <div class="morph-dots">
+        <div class="morph-dots" id="morphDots">
           <span class="morph-dot active"></span>
           <span class="morph-dot"></span>
           <span class="morph-dot"></span>
+        </div>
+      </div>
+
+      <!-- Right: 3 scrolling content panels -->
+      <div class="split-right">
+
+        <div class="split-panel" data-step="0">
+          <p class="section-label">The App</p>
+          <h2 class="split-heading">Your daily<br>sanctuary.</h2>
+          <p class="split-body">The Secret Place is a Christian meditation app built for real moments of quiet. Guided breathwork, prayer, Scripture, sleep, and more — every track written and recorded by hand.</p>
+          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+             class="btn-secondary" target="_blank" rel="noopener" style="width:fit-content;">
+            Download on iOS
+          </a>
+        </div>
+
+        <div class="split-panel" data-step="1">
+          <p class="section-label">Prayer &amp; Stillness</p>
+          <h2 class="split-heading">Come as<br>you are.</h2>
+          <p class="split-body">Scripture-rooted meditations for prayer, contemplation, and waiting on God. Whether you have 1 minute or 30, there's a session for where you are right now.</p>
+          <blockquote class="split-quote">
+            "The Lord will fight for you. You need only to be still."
+            <cite>— Exodus 14:14</cite>
+          </blockquote>
+        </div>
+
+        <div class="split-panel" data-step="2">
+          <p class="section-label">23+ Sessions</p>
+          <h2 class="split-heading">Everything<br>you need.</h2>
+          <p class="split-body">Eight categories, new meditations added regularly. A Selah timer for silent practice. A journal for your intentions. Daily spiritual insights tailored to your session.</p>
+          <div class="split-cats">
+            <span>☀️ Morning</span>
+            <span>🙏 Prayer</span>
+            <span>🌙 Sleep</span>
+            <span>💨 Breathwork</span>
+            <span>🌿 Stress Relief</span>
+            <span>🌊 Soundscapes</span>
+          </div>
+          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+             class="btn-primary" target="_blank" rel="noopener" style="width:fit-content;">
+            Start Free 7-Day Trial
+          </a>
         </div>
 
       </div>
@@ -253,43 +272,41 @@
   </footer>
 
   <script>
-    const gallery = document.getElementById('morphGallery');
-    const frame   = document.getElementById('morphFrame');
-    const slides  = gallery.querySelectorAll('.morph-slide');
-    const labels  = gallery.querySelectorAll('.morph-label');
-    const dots    = gallery.querySelectorAll('.morph-dot');
-    let   active  = 0;
+    const frame  = document.getElementById('morphFrame');
+    const slides = document.querySelectorAll('.morph-slide');
+    const dots   = document.querySelectorAll('#morphDots .morph-dot');
+    const panels = document.querySelectorAll('.split-panel');
+    let   active = 0;
 
-    // Shape + size for each step
     const frameStates = [
-      { borderRadius: '22%',  width: '260px', height: '260px' },  // app icon
-      { borderRadius: '50%',  width: '260px', height: '260px' },  // prayer circle
-      { borderRadius: '18px', width: '320px', height: 'auto'  },  // content card
+      { borderRadius: '22%', width: '260px', height: '260px' },
+      { borderRadius: '50%', width: '260px', height: '260px' },
+      { borderRadius: '16px', width: '260px', height: '260px' },
     ];
 
     function goTo(step) {
       if (step === active) return;
       slides[active].classList.remove('active');
-      labels[active].classList.remove('active');
       dots[active].classList.remove('active');
       active = step;
       slides[step].classList.add('active');
-      labels[step].classList.add('active');
       dots[step].classList.add('active');
       const s = frameStates[step];
       frame.style.borderRadius = s.borderRadius;
       frame.style.width        = s.width;
-      frame.style.height       = s.height === 'auto' ? '' : s.height;
+      frame.style.height       = s.height;
     }
 
-    window.addEventListener('scroll', () => {
-      const rect     = gallery.getBoundingClientRect();
-      const scrolled = -rect.top;
-      const range    = gallery.offsetHeight - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / range));
-      const step     = Math.min(slides.length - 1, Math.floor(progress * slides.length));
-      goTo(step);
-    }, { passive: true });
+    // Watch which right-side panel is in view
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          goTo(parseInt(entry.target.dataset.step));
+        }
+      });
+    }, { threshold: 0.5 });
+
+    panels.forEach(p => observer.observe(p));
   </script>
 
 </body>

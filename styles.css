@@ -378,25 +378,98 @@ footer p { font-size: 13px; color: var(--muted); }
 .footer-links a:hover { color: var(--gold); }
 
 /* ─────────────────────────────────────────────
-   Morph Gallery (index.html)
+   Split Scroll Section (index.html)
 ───────────────────────────────────────────── */
-.morph-gallery {
-  height: 300vh;  /* 3 steps × 100vh */
-  position: relative;
+.split-scroll {
+  display: flex;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.morph-sticky {
+/* Left: sticky panel holding the morphing frame */
+.split-left {
   position: sticky;
   top: 0;
   height: 100vh;
+  width: 50%;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 28px;
+  gap: 24px;
 }
 
-/* The morphing frame */
+/* Right: 3 tall panels that scroll normally */
+.split-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.split-panel {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 80px 0 80px 48px;
+}
+
+.split-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: normal;
+  color: white;
+  line-height: 1.18;
+}
+
+.split-body {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 380px;
+}
+
+.split-quote {
+  border-left: 2px solid var(--gold);
+  padding-left: 18px;
+  max-width: 360px;
+}
+.split-quote p, .split-quote {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7;
+  margin: 0;
+}
+.split-quote cite {
+  display: block;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-top: 8px;
+}
+
+.split-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 380px;
+}
+.split-cats span {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+}
+
+/* Morphing frame */
 .morph-frame {
   position: relative;
   width: 260px;
@@ -405,14 +478,11 @@ footer p { font-size: 13px; color: var(--muted); }
   overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
-  box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 20px 60px rgba(0,0,0,0.4);
-  transition: border-radius 0.8s cubic-bezier(0.4,0,0.2,1),
-              width 0.8s cubic-bezier(0.4,0,0.2,1),
-              height 0.8s cubic-bezier(0.4,0,0.2,1);
-  will-change: border-radius, width, height;
+  box-shadow: 0 0 60px rgba(201,168,76,0.18), 0 20px 60px rgba(0,0,0,0.45);
+  transition: border-radius 0.75s cubic-bezier(0.4,0,0.2,1);
+  will-change: border-radius;
 }
 
-/* Slides stacked inside frame, crossfade */
 .morph-slide {
   position: absolute;
   inset: 0;
@@ -424,15 +494,11 @@ footer p { font-size: 13px; color: var(--muted); }
 }
 .morph-slide.active { opacity: 1; }
 
-/* Step 0: App icon fills frame */
 .morph-icon-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
 }
 
-/* Step 1: Prayer emoji + scripture */
 .morph-prayer {
   display: flex;
   flex-direction: column;
@@ -449,7 +515,7 @@ footer p { font-size: 13px; color: var(--muted); }
 }
 .morph-verse {
   font-family: Georgia, serif;
-  font-size: 14px;
+  font-size: 13px;
   font-style: italic;
   color: rgba(255,255,255,0.85);
   line-height: 1.6;
@@ -460,60 +526,6 @@ footer p { font-size: 13px; color: var(--muted); }
   color: var(--gold);
 }
 
-/* Step 2: Content card */
-.morph-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 28px 24px;
-  text-align: center;
-  width: 100%;
-}
-.morph-content-count {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.morph-cats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-}
-.morph-cats span {
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.75);
-}
-.morph-dl-btn {
-  font-size: 13px;
-  padding: 11px 24px;
-  margin-top: 4px;
-}
-
-/* Label below frame */
-.morph-label-wrap {
-  position: relative;
-  height: 22px;
-  width: 300px;
-  text-align: center;
-}
-.morph-label {
-  position: absolute;
-  left: 0; right: 0;
-  font-size: 14px;
-  color: var(--muted);
-  letter-spacing: 0.3px;
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-.morph-label.active { opacity: 1; }
-
 /* Dots */
 .morph-dots {
   display: flex;
@@ -521,8 +533,7 @@ footer p { font-size: 13px; color: var(--muted); }
 }
 .morph-dot {
   display: block;
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: rgba(255,255,255,0.25);
   transition: width 0.35s, background 0.35s, border-radius 0.35s;
@@ -951,11 +962,22 @@ footer p { font-size: 13px; color: var(--muted); }
   .nav-links { gap: 2px; }
   .nav-links a { padding: 6px 10px; font-size: 13px; }
 
-  /* Morph gallery */
-  .morph-frame { width: 220px !important; height: 220px !important; }
+  /* Split scroll — stack vertically on mobile */
+  .split-scroll { flex-direction: column; padding: 0; }
+  .split-left {
+    position: relative; top: auto;
+    height: auto; width: 100%;
+    padding: 52px 24px 24px;
+  }
+  .split-right { width: 100%; }
+  .split-panel {
+    min-height: auto;
+    padding: 32px 24px 48px;
+    border-top: 1px solid var(--border);
+  }
+  .split-panel:first-child { border-top: none; }
+  .morph-frame { width: 200px !important; height: 200px !important; }
   .morph-emoji { font-size: 52px; }
-  .morph-verse { font-size: 12px; }
-  .morph-cats span { font-size: 11px; padding: 5px 10px; }
 
   /* Hero */
   .hero { padding: 70px 20px 60px; }
