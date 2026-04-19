@@ -378,118 +378,159 @@ footer p { font-size: 13px; color: var(--muted); }
 .footer-links a:hover { color: var(--gold); }
 
 /* ─────────────────────────────────────────────
-   Scroll Gallery (index.html)
+   Morph Gallery (index.html)
 ───────────────────────────────────────────── */
-.scroll-gallery {
-  height: 400vh;   /* 4 images × 100vh each */
+.morph-gallery {
+  height: 300vh;  /* 3 steps × 100vh */
   position: relative;
 }
 
-.scroll-gallery-sticky {
+.morph-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
 }
 
-/* Images stacked, crossfade between them */
-.gallery-img {
+/* The morphing frame */
+.morph-frame {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 22%;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 20px 60px rgba(0,0,0,0.4);
+  transition: border-radius 0.8s cubic-bezier(0.4,0,0.2,1),
+              width 0.8s cubic-bezier(0.4,0,0.2,1),
+              height 0.8s cubic-bezier(0.4,0,0.2,1);
+  will-change: border-radius, width, height;
+}
+
+/* Slides stacked inside frame, crossfade */
+.morph-slide {
   position: absolute;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.morph-slide.active { opacity: 1; }
+
+/* Step 0: App icon fills frame */
+.morph-icon-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.9s ease;
-  will-change: opacity;
-}
-.gallery-img.active { opacity: 1; }
-
-/* Dark gradient overlay so text is always readable */
-.gallery-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(26,31,53,0.25) 0%,
-    rgba(26,31,53,0.15) 40%,
-    rgba(26,31,53,0.65) 100%
-  );
-  z-index: 1;
+  display: block;
 }
 
-/* Caption group */
-.gallery-captions {
-  position: absolute;
-  bottom: 18%;
-  left: 0;
-  right: 0;
+/* Step 1: Prayer emoji + scripture */
+.morph-prayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
   text-align: center;
-  z-index: 2;
-  padding: 0 24px;
+}
+.morph-emoji {
+  font-size: 64px;
+  line-height: 1;
+  filter: drop-shadow(0 0 14px rgba(201,168,76,0.5));
+}
+.morph-verse {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+.morph-verse-ref {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--gold);
 }
 
-.gallery-caption {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+/* Step 2: Content card */
+.morph-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 24px;
   text-align: center;
-  opacity: 0;
-  transition: opacity 0.9s ease;
-  white-space: nowrap;
+  width: 100%;
 }
-.gallery-caption.active { opacity: 1; }
-
-.gallery-label {
+.morph-content-count {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2.5px;
-  color: var(--gold);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  color: var(--gold);
+}
+.morph-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.morph-cats span {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+}
+.morph-dl-btn {
+  font-size: 13px;
+  padding: 11px 24px;
+  margin-top: 4px;
 }
 
-.gallery-heading {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(34px, 5.5vw, 58px);
-  font-weight: normal;
-  color: white;
-  line-height: 1.2;
+/* Label below frame */
+.morph-label-wrap {
+  position: relative;
+  height: 22px;
+  width: 300px;
+  text-align: center;
 }
-
-/* Progress dots */
-.gallery-dots {
+.morph-label {
   position: absolute;
-  bottom: 11%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0; right: 0;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.morph-label.active { opacity: 1; }
+
+/* Dots */
+.morph-dots {
   display: flex;
   gap: 8px;
-  z-index: 2;
 }
-
-.gallery-dot {
+.morph-dot {
   display: block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.30);
-  transition: width 0.35s ease, background 0.35s ease, border-radius 0.35s ease;
+  background: rgba(255,255,255,0.25);
+  transition: width 0.35s, background 0.35s, border-radius 0.35s;
 }
-.gallery-dot.active {
-  width: 26px;
+.morph-dot.active {
+  width: 24px;
   border-radius: 4px;
   background: var(--gold);
-}
-
-/* Download CTA floating at bottom of gallery */
-.gallery-cta {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  white-space: nowrap;
 }
 
 /* ─────────────────────────────────────────────
@@ -910,9 +951,11 @@ footer p { font-size: 13px; color: var(--muted); }
   .nav-links { gap: 2px; }
   .nav-links a { padding: 6px 10px; font-size: 13px; }
 
-  /* Gallery */
-  .gallery-caption { white-space: normal; width: 90vw; }
-  .gallery-cta { bottom: 4%; font-size: 14px; padding: 12px 24px; }
+  /* Morph gallery */
+  .morph-frame { width: 220px !important; height: 220px !important; }
+  .morph-emoji { font-size: 52px; }
+  .morph-verse { font-size: 12px; }
+  .morph-cats span { font-size: 11px; padding: 5px 10px; }
 
   /* Hero */
   .hero { padding: 70px 20px 60px; }

@@ -76,47 +76,61 @@
       </div>
     </div>
 
-    <!-- Scroll Gallery -->
-    <div class="scroll-gallery" id="scrollGallery">
-      <div class="scroll-gallery-sticky">
+    <!-- Morph Gallery -->
+    <div class="morph-gallery" id="morphGallery">
+      <div class="morph-sticky">
 
-        <img src="images/morningBeach.jpg"           class="gallery-img" alt="Morning meditation on the beach" />
-        <img src="images/beach.jpg"                  class="gallery-img" alt="Calm ocean waves" />
-        <img src="images/floatingWaterCandles.jpg"   class="gallery-img" alt="Floating candles on water" />
-        <img src="images/bible-coffeecup.jpg"        class="gallery-img" alt="Bible and coffee" />
+        <!-- Morphing frame — shape changes with each step -->
+        <div class="morph-frame" id="morphFrame">
 
-        <div class="gallery-overlay"></div>
+          <!-- Step 0: App icon -->
+          <div class="morph-slide active" data-step="0">
+            <img src="images/appicon.png" class="morph-icon-img" alt="The Secret Place app icon" />
+          </div>
 
-        <div class="gallery-captions">
-          <div class="gallery-caption" data-index="0">
-            <p class="gallery-label">Morning</p>
-            <h2 class="gallery-heading">Begin each day<br>in stillness.</h2>
+          <!-- Step 1: Prayer -->
+          <div class="morph-slide" data-step="1">
+            <div class="morph-prayer">
+              <span class="morph-emoji">🙏</span>
+              <p class="morph-verse">"Be still, and know<br>that I am God."</p>
+              <p class="morph-verse-ref">— Psalm 46:10</p>
+            </div>
           </div>
-          <div class="gallery-caption" data-index="1">
-            <p class="gallery-label">Breathwork</p>
-            <h2 class="gallery-heading">One breath<br>changes everything.</h2>
+
+          <!-- Step 2: Content -->
+          <div class="morph-slide" data-step="2">
+            <div class="morph-content">
+              <p class="morph-content-count">23+ guided sessions</p>
+              <div class="morph-cats">
+                <span>☀️ Morning</span>
+                <span>🙏 Prayer</span>
+                <span>🌙 Sleep</span>
+                <span>💨 Breathwork</span>
+                <span>🌿 Stress Relief</span>
+                <span>🌊 Soundscapes</span>
+              </div>
+              <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+                 class="btn-primary morph-dl-btn" target="_blank" rel="noopener">
+                Start Free Trial
+              </a>
+            </div>
           </div>
-          <div class="gallery-caption" data-index="2">
-            <p class="gallery-label">Prayer</p>
-            <h2 class="gallery-heading">Come as you are.<br>He is already there.</h2>
-          </div>
-          <div class="gallery-caption" data-index="3">
-            <p class="gallery-label">Scripture</p>
-            <h2 class="gallery-heading">Rooted in faith.<br>Open to the Spirit.</h2>
-          </div>
+
         </div>
 
-        <div class="gallery-dots" id="galleryDots">
-          <span class="gallery-dot"></span>
-          <span class="gallery-dot"></span>
-          <span class="gallery-dot"></span>
-          <span class="gallery-dot"></span>
+        <!-- Label below frame -->
+        <div class="morph-label-wrap">
+          <p class="morph-label active" data-step="0">Your daily sanctuary</p>
+          <p class="morph-label"        data-step="1">A place of prayer &amp; stillness</p>
+          <p class="morph-label"        data-step="2">Everything you need</p>
         </div>
 
-        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-           class="gallery-cta btn-primary" target="_blank" rel="noopener">
-          Download Free on iOS
-        </a>
+        <!-- Dots -->
+        <div class="morph-dots">
+          <span class="morph-dot active"></span>
+          <span class="morph-dot"></span>
+          <span class="morph-dot"></span>
+        </div>
 
       </div>
     </div>
@@ -239,35 +253,42 @@
   </footer>
 
   <script>
-    const gallery  = document.getElementById('scrollGallery');
-    const imgs     = gallery.querySelectorAll('.gallery-img');
-    const captions = gallery.querySelectorAll('.gallery-caption');
-    const dots     = gallery.querySelectorAll('.gallery-dot');
-    let   activeIdx = 0;
+    const gallery = document.getElementById('morphGallery');
+    const frame   = document.getElementById('morphFrame');
+    const slides  = gallery.querySelectorAll('.morph-slide');
+    const labels  = gallery.querySelectorAll('.morph-label');
+    const dots    = gallery.querySelectorAll('.morph-dot');
+    let   active  = 0;
 
-    function setActive(idx) {
-      if (idx === activeIdx) return;
-      imgs[activeIdx].classList.remove('active');
-      captions[activeIdx].classList.remove('active');
-      dots[activeIdx].classList.remove('active');
-      activeIdx = idx;
-      imgs[idx].classList.add('active');
-      captions[idx].classList.add('active');
-      dots[idx].classList.add('active');
+    // Shape + size for each step
+    const frameStates = [
+      { borderRadius: '22%',  width: '260px', height: '260px' },  // app icon
+      { borderRadius: '50%',  width: '260px', height: '260px' },  // prayer circle
+      { borderRadius: '18px', width: '320px', height: 'auto'  },  // content card
+    ];
+
+    function goTo(step) {
+      if (step === active) return;
+      slides[active].classList.remove('active');
+      labels[active].classList.remove('active');
+      dots[active].classList.remove('active');
+      active = step;
+      slides[step].classList.add('active');
+      labels[step].classList.add('active');
+      dots[step].classList.add('active');
+      const s = frameStates[step];
+      frame.style.borderRadius = s.borderRadius;
+      frame.style.width        = s.width;
+      frame.style.height       = s.height === 'auto' ? '' : s.height;
     }
 
-    // Init first slide
-    imgs[0].classList.add('active');
-    captions[0].classList.add('active');
-    dots[0].classList.add('active');
-
     window.addEventListener('scroll', () => {
-      const rect      = gallery.getBoundingClientRect();
-      const scrolled  = -rect.top;                                    // px scrolled into gallery
-      const range     = gallery.offsetHeight - window.innerHeight;    // total scroll range
-      const progress  = Math.max(0, Math.min(1, scrolled / range));
-      const idx       = Math.min(imgs.length - 1, Math.floor(progress * imgs.length));
-      setActive(idx);
+      const rect     = gallery.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const range    = gallery.offsetHeight - window.innerHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / range));
+      const step     = Math.min(slides.length - 1, Math.floor(progress * slides.length));
+      goTo(step);
     }, { passive: true });
   </script>
 
