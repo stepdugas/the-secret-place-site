@@ -76,6 +76,51 @@
       </div>
     </div>
 
+    <!-- Scroll Gallery -->
+    <div class="scroll-gallery" id="scrollGallery">
+      <div class="scroll-gallery-sticky">
+
+        <img src="images/morningBeach.jpg"           class="gallery-img" alt="Morning meditation on the beach" />
+        <img src="images/beach.jpg"                  class="gallery-img" alt="Calm ocean waves" />
+        <img src="images/floatingWaterCandles.jpg"   class="gallery-img" alt="Floating candles on water" />
+        <img src="images/bible-coffeecup.jpg"        class="gallery-img" alt="Bible and coffee" />
+
+        <div class="gallery-overlay"></div>
+
+        <div class="gallery-captions">
+          <div class="gallery-caption" data-index="0">
+            <p class="gallery-label">Morning</p>
+            <h2 class="gallery-heading">Begin each day<br>in stillness.</h2>
+          </div>
+          <div class="gallery-caption" data-index="1">
+            <p class="gallery-label">Breathwork</p>
+            <h2 class="gallery-heading">One breath<br>changes everything.</h2>
+          </div>
+          <div class="gallery-caption" data-index="2">
+            <p class="gallery-label">Prayer</p>
+            <h2 class="gallery-heading">Come as you are.<br>He is already there.</h2>
+          </div>
+          <div class="gallery-caption" data-index="3">
+            <p class="gallery-label">Scripture</p>
+            <h2 class="gallery-heading">Rooted in faith.<br>Open to the Spirit.</h2>
+          </div>
+        </div>
+
+        <div class="gallery-dots" id="galleryDots">
+          <span class="gallery-dot"></span>
+          <span class="gallery-dot"></span>
+          <span class="gallery-dot"></span>
+          <span class="gallery-dot"></span>
+        </div>
+
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+           class="gallery-cta btn-primary" target="_blank" rel="noopener">
+          Download Free on iOS
+        </a>
+
+      </div>
+    </div>
+
     <div class="divider"></div>
 
     <!-- Features -->
@@ -192,6 +237,39 @@
       <li><a href="terms.html">Terms of Use</a></li>
     </ul>
   </footer>
+
+  <script>
+    const gallery  = document.getElementById('scrollGallery');
+    const imgs     = gallery.querySelectorAll('.gallery-img');
+    const captions = gallery.querySelectorAll('.gallery-caption');
+    const dots     = gallery.querySelectorAll('.gallery-dot');
+    let   activeIdx = 0;
+
+    function setActive(idx) {
+      if (idx === activeIdx) return;
+      imgs[activeIdx].classList.remove('active');
+      captions[activeIdx].classList.remove('active');
+      dots[activeIdx].classList.remove('active');
+      activeIdx = idx;
+      imgs[idx].classList.add('active');
+      captions[idx].classList.add('active');
+      dots[idx].classList.add('active');
+    }
+
+    // Init first slide
+    imgs[0].classList.add('active');
+    captions[0].classList.add('active');
+    dots[0].classList.add('active');
+
+    window.addEventListener('scroll', () => {
+      const rect      = gallery.getBoundingClientRect();
+      const scrolled  = -rect.top;                                    // px scrolled into gallery
+      const range     = gallery.offsetHeight - window.innerHeight;    // total scroll range
+      const progress  = Math.max(0, Math.min(1, scrolled / range));
+      const idx       = Math.min(imgs.length - 1, Math.floor(progress * imgs.length));
+      setActive(idx);
+    }, { passive: true });
+  </script>
 
 </body>
 </html>

@@ -378,6 +378,121 @@ footer p { font-size: 13px; color: var(--muted); }
 .footer-links a:hover { color: var(--gold); }
 
 /* ─────────────────────────────────────────────
+   Scroll Gallery (index.html)
+───────────────────────────────────────────── */
+.scroll-gallery {
+  height: 400vh;   /* 4 images × 100vh each */
+  position: relative;
+}
+
+.scroll-gallery-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Images stacked, crossfade between them */
+.gallery-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  will-change: opacity;
+}
+.gallery-img.active { opacity: 1; }
+
+/* Dark gradient overlay so text is always readable */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26,31,53,0.25) 0%,
+    rgba(26,31,53,0.15) 40%,
+    rgba(26,31,53,0.65) 100%
+  );
+  z-index: 1;
+}
+
+/* Caption group */
+.gallery-captions {
+  position: absolute;
+  bottom: 18%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  padding: 0 24px;
+}
+
+.gallery-caption {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  white-space: nowrap;
+}
+.gallery-caption.active { opacity: 1; }
+
+.gallery-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.gallery-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 5.5vw, 58px);
+  font-weight: normal;
+  color: white;
+  line-height: 1.2;
+}
+
+/* Progress dots */
+.gallery-dots {
+  position: absolute;
+  bottom: 11%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.gallery-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.30);
+  transition: width 0.35s ease, background 0.35s ease, border-radius 0.35s ease;
+}
+.gallery-dot.active {
+  width: 26px;
+  border-radius: 4px;
+  background: var(--gold);
+}
+
+/* Download CTA floating at bottom of gallery */
+.gallery-cta {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
    Selah Callout (index.html)
 ───────────────────────────────────────────── */
 .selah-callout { padding: 72px 24px; max-width: 900px; margin: 0 auto; }
@@ -794,6 +909,10 @@ footer p { font-size: 13px; color: var(--muted); }
   .nav-brand span:last-child { display: none; } /* hide text, keep sparkle brand mark */
   .nav-links { gap: 2px; }
   .nav-links a { padding: 6px 10px; font-size: 13px; }
+
+  /* Gallery */
+  .gallery-caption { white-space: normal; width: 90vw; }
+  .gallery-cta { bottom: 4%; font-size: 14px; padding: 12px 24px; }
 
   /* Hero */
   .hero { padding: 70px 20px 60px; }
