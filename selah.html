@@ -256,86 +256,172 @@
     }
 
     // ─── Web Audio ───────────────────────────────────────────
+    let activeNodes = []; // all stoppable nodes
+
     function initAudioCtx() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 
+    // Build a looping noise buffer (type: 'pink' | 'white')
+    function makeNoise(type) {
+      const len  = audioCtx.sampleRate * 4;
+      const buf  = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+      const data = buf.getChannelData(0);
+      if (type === 'white') {
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+      } else {
+        let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+        for (let i = 0; i < len; i++) {
+          const w = Math.random() * 2 - 1;
+          b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759;
+          b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856;
+          b4=0.55000*b4+w*0.5329522; b5=-0.7616*b5-w*0.0168980;
+          data[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.11; b6=w*0.115926;
+        }
+      }
+      const src = audioCtx.createBufferSource();
+      src.buffer = buf; src.loop = true;
+      activeNodes.push(src);
+      return src;
+    }
+
+    // Build an oscillator LFO
+    function makeLFO(freq) {
+      const lfo = audioCtx.createOscillator();
+      lfo.type = 'sine'; lfo.frequency.value = freq;
+      activeNodes.push(lfo);
+      return lfo;
+    }
+
+    // Fade a gain node in over 2s then hold at target
+    function fadeIn(gainNode, target) {
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(target, audioCtx.currentTime + 2);
+    }
+
     function startAmbient(type) {
       if (!audioCtx) return;
       stopAmbient();
-
-      const bufferSize = audioCtx.sampleRate * 3;
-      const buffer     = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data       = buffer.getChannelData(0);
-
-      // Generate pink noise
-      let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
-      for (let i = 0; i < bufferSize; i++) {
-        const w = Math.random() * 2 - 1;
-        b0 = 0.99886*b0 + w*0.0555179; b1 = 0.99332*b1 + w*0.0750759;
-        b2 = 0.96900*b2 + w*0.1538520; b3 = 0.86650*b3 + w*0.3104856;
-        b4 = 0.55000*b4 + w*0.5329522; b5 = -0.7616*b5 - w*0.0168980;
-        data[i] = (b0+b1+b2+b3+b4+b5+b6 + w*0.5362) * 0.11;
-        b6 = w * 0.115926;
-      }
-
-      noiseSource = audioCtx.createBufferSource();
-      noiseSource.buffer = buffer;
-      noiseSource.loop   = true;
-
-      noiseGain = audioCtx.createGain();
-
-      // Filter shapes per sound type
-      const filter = audioCtx.createBiquadFilter();
+      const dest = audioCtx.destination;
 
       if (type === 'rain') {
-        filter.type            = 'bandpass';
-        filter.frequency.value = 1200;
-        filter.Q.value         = 0.6;
-        noiseGain.gain.value   = 0.55;
+        // ── Rain: bright high-freq hiss + subtle low rumble ──
+        const master = audioCtx.createGain();
+        fadeIn(master, 1); master.connect(dest);
+        noiseGain = master;
+
+        // Hiss layer — white noise, bandpass around 3kHz
+        const hiss = makeNoise('white');
+        const hissF = audioCtx.createBiquadFilter();
+        hissF.type = 'bandpass'; hissF.frequency.value = 3000; hissF.Q.value = 0.7;
+        const hissG = audioCtx.createGain(); hissG.gain.value = 0.55;
+        hiss.connect(hissF); hissF.connect(hissG); hissG.connect(master);
+
+        // Rumble layer — pink noise, lowpass 150Hz
+        const rumble = makeNoise('pink');
+        const rumbleF = audioCtx.createBiquadFilter();
+        rumbleF.type = 'lowpass'; rumbleF.frequency.value = 150;
+        const rumbleG = audioCtx.createGain(); rumbleG.gain.value = 0.2;
+        rumble.connect(rumbleF); rumbleF.connect(rumbleG); rumbleG.connect(master);
+
+        hiss.start(); rumble.start();
+
       } else if (type === 'ocean') {
-        filter.type            = 'lowpass';
-        filter.frequency.value = 600;
-        filter.Q.value         = 0.8;
-        noiseGain.gain.value   = 0.6;
-        // LFO for wave effect
-        lfoNode = audioCtx.createOscillator();
-        const lfoGain = audioCtx.createGain();
-        lfoGain.gain.value        = 0.3;
-        lfoNode.frequency.value   = 0.18;
-        lfoNode.connect(lfoGain);
-        lfoGain.connect(noiseGain.gain);
-        lfoNode.start();
+        // ── Ocean: deep rumble with slow wave swell LFO ──
+        const master = audioCtx.createGain();
+        master.gain.value = 1; master.connect(dest);
+        noiseGain = master;
+
+        // Wave body — pink noise, lowpass 280Hz
+        const wave = makeNoise('pink');
+        const waveF = audioCtx.createBiquadFilter();
+        waveF.type = 'lowpass'; waveF.frequency.value = 280;
+        const waveG = audioCtx.createGain(); waveG.gain.value = 0;
+        wave.connect(waveF); waveF.connect(waveG); waveG.connect(master);
+
+        // Swell LFO — 0.1Hz (one wave every ~10s), modulates volume 0.1 → 0.6
+        const lfo = makeLFO(0.1);
+        const lfoG = audioCtx.createGain(); lfoG.gain.value = 0.25;
+        lfo.connect(lfoG); lfoG.connect(waveG.gain);
+        waveG.gain.setValueAtTime(0, audioCtx.currentTime);
+        waveG.gain.linearRampToValueAtTime(0.35, audioCtx.currentTime + 2);
+        lfo.start(); wave.start();
+
+        // Foam layer — white noise, highpass 1800Hz, very quiet
+        const foam = makeNoise('white');
+        const foamF = audioCtx.createBiquadFilter();
+        foamF.type = 'highpass'; foamF.frequency.value = 1800;
+        const foamG = audioCtx.createGain(); foamG.gain.value = 0;
+        foam.connect(foamF); foamF.connect(foamG); foamG.connect(master);
+        foamG.gain.setValueAtTime(0, audioCtx.currentTime);
+        foamG.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 3);
+        foam.start();
+
       } else if (type === 'wind') {
-        filter.type            = 'bandpass';
-        filter.frequency.value = 400;
-        filter.Q.value         = 1.5;
-        noiseGain.gain.value   = 0.45;
+        // ── Wind: airy mid-high whoosh with slow gusting LFO ──
+        const master = audioCtx.createGain();
+        fadeIn(master, 1); master.connect(dest);
+        noiseGain = master;
+
+        // Whoosh — pink noise, bandpass 900Hz, wide Q
+        const whoosh = makeNoise('pink');
+        const whooshF = audioCtx.createBiquadFilter();
+        whooshF.type = 'bandpass'; whooshF.frequency.value = 900; whooshF.Q.value = 0.5;
+        const whooshG = audioCtx.createGain(); whooshG.gain.value = 0.45;
+        whoosh.connect(whooshF); whooshF.connect(whooshG); whooshG.connect(master);
+
+        // Gust LFO — 0.25Hz, modulates volume to feel like gusts
+        const lfo = makeLFO(0.25);
+        const lfoG = audioCtx.createGain(); lfoG.gain.value = 0.2;
+        lfo.connect(lfoG); lfoG.connect(whooshG.gain);
+        lfo.start();
+
+        // High airy overtone — white noise, highpass 2200Hz, very subtle
+        const airy = makeNoise('white');
+        const airyF = audioCtx.createBiquadFilter();
+        airyF.type = 'highpass'; airyF.frequency.value = 2200;
+        const airyG = audioCtx.createGain(); airyG.gain.value = 0;
+        airy.connect(airyF); airyF.connect(airyG); airyG.connect(master);
+        airyG.gain.setValueAtTime(0, audioCtx.currentTime);
+        airyG.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 2);
+        airy.start(); whoosh.start();
+
       } else if (type === 'fire') {
-        filter.type            = 'lowpass';
-        filter.frequency.value = 800;
-        filter.Q.value         = 0.4;
-        noiseGain.gain.value   = 0.4;
+        // ── Fire: warm low crackle base + sharp crackle pops ──
+        const master = audioCtx.createGain();
+        fadeIn(master, 1); master.connect(dest);
+        noiseGain = master;
+
+        // Warm base — pink noise, lowpass 120Hz (the "roar")
+        const base = makeNoise('pink');
+        const baseF = audioCtx.createBiquadFilter();
+        baseF.type = 'lowpass'; baseF.frequency.value = 120;
+        const baseG = audioCtx.createGain(); baseG.gain.value = 0.5;
+        base.connect(baseF); baseF.connect(baseG); baseG.connect(master);
+
+        // Crackle — white noise amplitude-modulated by a fast LFO (20Hz)
+        // creates the irregular "pop/spit" texture of fire
+        const crackle = makeNoise('white');
+        const crackleF = audioCtx.createBiquadFilter();
+        crackleF.type = 'bandpass'; crackleF.frequency.value = 1200; crackleF.Q.value = 2;
+        const crackleG = audioCtx.createGain(); crackleG.gain.value = 0;
+        crackle.connect(crackleF); crackleF.connect(crackleG); crackleG.connect(master);
+
+        const crackLFO = makeLFO(22);
+        const crackLFOG = audioCtx.createGain(); crackLFOG.gain.value = 0.12;
+        crackLFO.connect(crackLFOG); crackLFOG.connect(crackleG.gain);
+        crackLFO.start();
+
+        crackleG.gain.setValueAtTime(0, audioCtx.currentTime);
+        crackleG.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 2);
+        base.start(); crackle.start();
       }
-
-      noiseSource.connect(filter);
-      filter.connect(noiseGain);
-      noiseGain.connect(audioCtx.destination);
-
-      // Fade in
-      noiseGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      noiseGain.gain.linearRampToValueAtTime(
-        type === 'rain' ? 0.55 : type === 'ocean' ? 0.6 : type === 'wind' ? 0.45 : 0.4,
-        audioCtx.currentTime + 2
-      );
-
-      noiseSource.start();
     }
 
     function stopAmbient() {
-      if (noiseSource) { try { noiseSource.stop(); } catch(e){} noiseSource = null; }
-      if (lfoNode)     { try { lfoNode.stop();     } catch(e){} lfoNode = null; }
+      activeNodes.forEach(n => { try { n.stop(); } catch(e){} });
+      activeNodes = [];
       noiseGain = null;
     }
 
