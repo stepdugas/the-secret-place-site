@@ -76,83 +76,51 @@
       </div>
     </div>
 
-    <!-- Split Scroll Section -->
-    <div class="split-scroll" id="splitScroll">
+    <!-- Scroll Animation Section -->
+    <section class="scroll-scene" id="scrollScene">
+      <div class="scroll-scene-inner">
 
-      <!-- Left: sticky morphing visual -->
-      <div class="split-left">
-        <div class="morph-frame" id="morphFrame">
-
-          <div class="morph-slide active" data-step="0">
-            <img src="images/appicon.png" class="morph-icon-img" alt="The Secret Place app icon" />
+        <!-- Left: sticky image frame, GSAP animates it -->
+        <div class="scene-left">
+          <div class="scene-img-wrap" id="sceneWrap">
+            <img class="scene-img" id="sImg0" src="images/appicon.png"             alt="The Secret Place app" />
+            <img class="scene-img" id="sImg1" src="images/floatingWaterCandles.jpg" alt="Prayer and stillness" />
+            <img class="scene-img" id="sImg2" src="images/morningBeach.jpg"         alt="Morning meditation" />
           </div>
-
-          <div class="morph-slide" data-step="1">
-            <div class="morph-prayer">
-              <span class="morph-emoji">🙏</span>
-              <p class="morph-verse">"Be still, and know<br>that I am God."</p>
-              <p class="morph-verse-ref">— Psalm 46:10</p>
-            </div>
-          </div>
-
-          <div class="morph-slide" data-step="2">
-            <div class="morph-prayer">
-              <img src="images/bible-coffeecup.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Scripture and prayer" />
-            </div>
-          </div>
-
         </div>
 
-        <div class="morph-dots" id="morphDots">
-          <span class="morph-dot active"></span>
-          <span class="morph-dot"></span>
-          <span class="morph-dot"></span>
+        <!-- Right: 3 panels, each 100vh, text fades in as you scroll -->
+        <div class="scene-right">
+
+          <div class="scene-panel" id="sPanel0">
+            <p class="section-label">The App</p>
+            <h2 class="scene-heading">Your daily<br><em>sanctuary.</em></h2>
+            <p class="scene-body">The Secret Place is a Christian meditation app built for real moments of quiet. Guided breathwork, prayer, Scripture, sleep — every track written and recorded by hand.</p>
+            <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+               class="btn-secondary" target="_blank" rel="noopener">Download on iOS ↗</a>
+          </div>
+
+          <div class="scene-panel" id="sPanel1">
+            <p class="section-label">Prayer &amp; Stillness</p>
+            <h2 class="scene-heading">Come as<br><em>you are.</em></h2>
+            <p class="scene-body">Scripture-rooted meditations for prayer, contemplation, and waiting on God. Whether you have 1 minute or 30, there's a place for you here.</p>
+            <blockquote class="scene-quote">
+              "The Lord will fight for you.<br>You need only to be still."
+              <cite>— Exodus 14:14</cite>
+            </blockquote>
+          </div>
+
+          <div class="scene-panel" id="sPanel2">
+            <p class="section-label">23+ Sessions</p>
+            <h2 class="scene-heading">Everything<br><em>you need.</em></h2>
+            <p class="scene-body">Eight categories, new meditations added regularly. Morning, breathwork, sleep, prayer, stress relief, soundscapes — plus a free Selah timer and daily insights.</p>
+            <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
+               class="btn-primary" target="_blank" rel="noopener">Start Free 7-Day Trial</a>
+          </div>
+
         </div>
       </div>
-
-      <!-- Right: 3 scrolling content panels -->
-      <div class="split-right">
-
-        <div class="split-panel" data-step="0">
-          <p class="section-label">The App</p>
-          <h2 class="split-heading">Your daily<br>sanctuary.</h2>
-          <p class="split-body">The Secret Place is a Christian meditation app built for real moments of quiet. Guided breathwork, prayer, Scripture, sleep, and more — every track written and recorded by hand.</p>
-          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-             class="btn-secondary" target="_blank" rel="noopener" style="width:fit-content;">
-            Download on iOS
-          </a>
-        </div>
-
-        <div class="split-panel" data-step="1">
-          <p class="section-label">Prayer &amp; Stillness</p>
-          <h2 class="split-heading">Come as<br>you are.</h2>
-          <p class="split-body">Scripture-rooted meditations for prayer, contemplation, and waiting on God. Whether you have 1 minute or 30, there's a session for where you are right now.</p>
-          <blockquote class="split-quote">
-            "The Lord will fight for you. You need only to be still."
-            <cite>— Exodus 14:14</cite>
-          </blockquote>
-        </div>
-
-        <div class="split-panel" data-step="2">
-          <p class="section-label">23+ Sessions</p>
-          <h2 class="split-heading">Everything<br>you need.</h2>
-          <p class="split-body">Eight categories, new meditations added regularly. A Selah timer for silent practice. A journal for your intentions. Daily spiritual insights tailored to your session.</p>
-          <div class="split-cats">
-            <span>☀️ Morning</span>
-            <span>🙏 Prayer</span>
-            <span>🌙 Sleep</span>
-            <span>💨 Breathwork</span>
-            <span>🌿 Stress Relief</span>
-            <span>🌊 Soundscapes</span>
-          </div>
-          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-             class="btn-primary" target="_blank" rel="noopener" style="width:fit-content;">
-            Start Free 7-Day Trial
-          </a>
-        </div>
-
-      </div>
-    </div>
+    </section>
 
     <div class="divider"></div>
 
@@ -271,42 +239,60 @@
     </ul>
   </footer>
 
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
-    const frame  = document.getElementById('morphFrame');
-    const slides = document.querySelectorAll('.morph-slide');
-    const dots   = document.querySelectorAll('#morphDots .morph-dot');
-    const panels = document.querySelectorAll('.split-panel');
-    let   active = 0;
+    gsap.registerPlugin(ScrollTrigger);
 
-    const frameStates = [
-      { borderRadius: '22%', width: '260px', height: '260px' },
-      { borderRadius: '50%', width: '260px', height: '260px' },
-      { borderRadius: '16px', width: '260px', height: '260px' },
-    ];
+    const wrap  = document.getElementById('sceneWrap');
+    const img0  = document.getElementById('sImg0');
+    const img1  = document.getElementById('sImg1');
+    const img2  = document.getElementById('sImg2');
 
-    function goTo(step) {
-      if (step === active) return;
-      slides[active].classList.remove('active');
-      dots[active].classList.remove('active');
-      active = step;
-      slides[step].classList.add('active');
-      dots[step].classList.add('active');
-      const s = frameStates[step];
-      frame.style.borderRadius = s.borderRadius;
-      frame.style.width        = s.width;
-      frame.style.height       = s.height;
-    }
+    // ── Image 0 → 1 crossfade: scrubbed to panel 1 entering ──
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '#sPanel1',
+        start: 'top 80%',
+        end:   'top 20%',
+        scrub: 1.2,
+      }
+    })
+    .to(img0,  { opacity: 0, scale: 1.06 }, 0)
+    .to(img1,  { opacity: 1 },              0)
+    // frame shape: rounded-square → circle
+    .to(wrap,  { borderRadius: '50%' },     0);
 
-    // Watch which right-side panel is in view
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          goTo(parseInt(entry.target.dataset.step));
+    // ── Image 1 → 2 crossfade: scrubbed to panel 2 entering ──
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '#sPanel2',
+        start: 'top 80%',
+        end:   'top 20%',
+        scrub: 1.2,
+      }
+    })
+    .to(img1,  { opacity: 0, scale: 1.06 }, 0)
+    .to(img2,  { opacity: 1 },              0)
+    // frame shape: circle → rounded card
+    .to(wrap,  { borderRadius: '16px' },    0);
+
+    // ── Panel text: each fades + slides up as it enters ──
+    ['#sPanel0','#sPanel1','#sPanel2'].forEach(id => {
+      gsap.fromTo(id,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 1,
+          scrollTrigger: {
+            trigger: id,
+            start: 'top 75%',
+            end:   'top 40%',
+            scrub: 1,
+          }
         }
-      });
-    }, { threshold: 0.5 });
-
-    panels.forEach(p => observer.observe(p));
+      );
+    });
   </script>
 
 </body>
