@@ -25,12 +25,12 @@
     <div class="prose">
 
       <h1>Privacy Policy</h1>
-      <span class="updated">Last updated: March 28, 2026</span>
+      <span class="updated">Last updated: May 6, 2026</span>
 
       <p>Your privacy matters to us. This policy explains what data The Secret Place collects, how it is used, and what is never collected. We have built this app with a minimal data footprint by design.</p>
 
       <h2>Information We Collect</h2>
-      <p>The Secret Place stores the following data <strong>locally on your device only</strong>, using Apple's standard UserDefaults system:</p>
+      <p>The Secret Place stores the following data <strong>locally on your device only</strong>, using Apple's UserDefaults (iOS) or Android's SharedPreferences (Android):</p>
       <ul>
         <li>Your first name (for personalized greetings)</li>
         <li>Your selected meditation intention</li>
@@ -48,14 +48,14 @@
       <h2>Meditation Catalog</h2>
       <p>The app fetches the meditation catalog (titles, descriptions, audio URLs) from Supabase, our backend database. This is a read-only request that does not transmit any personal information from your device. No account is required to browse or play meditations.</p>
 
-      <h2>Apple HealthKit</h2>
-      <p>If you enable the HealthKit integration in Settings, completed meditation sessions are written to Apple Health as Mindful Minutes. This data is governed entirely by Apple's HealthKit privacy framework. We do not access, read, or transmit any HealthKit data to our servers.</p>
+      <h2>Health Integration</h2>
+      <p>If you enable health logging in Settings, completed meditation sessions are recorded as mindful minutes. On iOS, sessions are written to Apple Health via HealthKit. On Android, sessions are written to Health Connect. This data is governed entirely by the respective platform's health privacy framework. We do not access, read, or transmit any health data to our servers.</p>
 
-      <h2>Apple Health and Fitness Data</h2>
-      <p>We access HealthKit only to <strong>write</strong> mindfulness session data when you explicitly enable this feature. We never read health data from HealthKit, and we never share it with third parties.</p>
+      <h2>Health and Fitness Data</h2>
+      <p>We access Apple HealthKit (iOS) and Health Connect (Android) only to <strong>write</strong> mindfulness session data when you explicitly enable this feature. We never read health data, and we never share it with third parties.</p>
 
       <h2>Analytics and Tracking</h2>
-      <p><strong>We do not use any analytics, tracking SDKs, or advertising frameworks.</strong> There are no third-party trackers in this app. We do not collect crash reports through third-party services. Standard Apple crash reporting through the App Store may apply per Apple's own privacy policy.</p>
+      <p><strong>We do not use any analytics, tracking SDKs, or advertising frameworks.</strong> There are no third-party trackers in this app. We do not collect crash reports through third-party services. Standard crash reporting through the Apple App Store or Google Play Store may apply per each platform's own privacy policy.</p>
 
       <h2>Audio Files</h2>
       <p>Bundled audio files are stored locally in the app. Cloud-hosted audio files (uploaded weekly by our content team) are downloaded from Supabase Storage to your device cache when you play them. No personal data is transmitted during this download.</p>
