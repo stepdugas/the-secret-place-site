@@ -17,7 +17,7 @@
   --surface: rgba(255,255,255,0.05);
   --border:  rgba(184,169,212,0.16);
   --text:    rgba(255,255,255,0.88);
-  --muted:   rgba(255,255,255,0.50);
+  --muted:   rgba(255,255,255,0.62);
   --radius:  14px;
   --serif:   'Fraunces', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans:    'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
@@ -934,7 +934,7 @@ footer p { font-size: 13px; color: var(--muted); }
   nav { padding: 0 14px; }
   .nav-brand span:last-child { display: none; } /* hide text, keep sparkle brand mark */
   .nav-links { gap: 2px; }
-  .nav-links a { padding: 6px 10px; font-size: 13px; }
+  .nav-links a { padding: 12px 14px; font-size: 13px; min-height: 44px; display: flex; align-items: center; }
 
   /* Scroll scene — stack on mobile */
   .scroll-scene-inner { flex-direction: column; padding: 0; }
@@ -978,7 +978,7 @@ footer p { font-size: 13px; color: var(--muted); }
   .timer-display { font-size: 36px; }
   .timer-controls { gap: 10px; }
   .timer-btn-primary { padding: 13px 28px; }
-  .pill { padding: 7px 13px; font-size: 12px; }
+  .pill { padding: 11px 14px; font-size: 12px; min-height: 40px; }
 
   /* Player page */
   .listen-page { padding: 52px 16px 64px; }
@@ -993,7 +993,7 @@ footer p { font-size: 13px; color: var(--muted); }
 
 /* ── Responsive — Very small (iPhone SE) ── */
 @media (max-width: 380px) {
-  .nav-links a { padding: 5px 8px; font-size: 12px; }
+  .nav-links a { padding: 11px 10px; font-size: 12px; min-height: 44px; }
   .timer-ring-wrap { width: 170px; height: 170px; }
   .timer-ring-svg  { width: 170px; height: 170px; }
   .timer-display { font-size: 32px; }
@@ -1254,7 +1254,7 @@ footer p { font-size: 13px; color: var(--muted); }
   display: flex;
   justify-content: center;
 }
-.practice-copy h2 {
+.practice-copy h3 {
   font-family: var(--serif);
   font-weight: 350;
   font-size: clamp(32px, 4vw, 48px);
@@ -1263,7 +1263,7 @@ footer p { font-size: 13px; color: var(--muted); }
   color: white;
   margin: 0 0 20px;
 }
-.practice-copy h2 em { font-style: italic; color: var(--gold); }
+.practice-copy h3 em { font-style: italic; color: var(--gold); }
 
 /* ─────────────────────────────────────────────
    CATEGORY GRID — phone cards in place of emoji grid
@@ -1478,7 +1478,7 @@ footer p { font-size: 13px; color: var(--muted); }
   .hero-v2 { padding: 40px 18px 64px; gap: 32px; }
   .hero-v2-stage { min-height: 420px; }
   .device--hero { width: 220px; }
-  .practice-copy h2 { font-size: clamp(26px, 7vw, 34px); }
+  .practice-copy h3 { font-size: clamp(26px, 7vw, 34px); }
   .library-card { flex: 0 0 180px; }
   .closer { padding: 72px 18px 88px; }
 }
@@ -1490,4 +1490,38 @@ footer p { font-size: 13px; color: var(--muted); }
   .library-card { flex: 0 0 160px; }
   .hero-v2 .hero-actions { gap: 14px; }
   .stage { padding: 48px 16px; }
+}
+
+/* ═════════════════════════════════════════════
+   ACCESSIBILITY — focus + reduced motion
+═════════════════════════════════════════════ */
+
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.app-store-badge:focus-visible,
+.google-play-badge:focus-visible {
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+.library-card:focus-visible {
+  outline-offset: -2px;
+  border-radius: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .library-card:hover img,
+  .category-card:hover,
+  .app-store-badge:hover,
+  .google-play-badge:hover,
+  .btn-primary:hover { transform: none !important; }
 }
