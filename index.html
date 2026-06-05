@@ -70,14 +70,19 @@
 
   <link rel="icon" type="image/png" href="og-image.png" />
   <link rel="apple-touch-icon" href="og-image.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <nav>
     <a class="nav-brand" href="index.html">
-      <span class="sparkle">✦</span>
-      <span>The Secret Place Meditation App</span>
+      <span>The Secret Place</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -89,174 +94,180 @@
 
   <div class="page">
 
-    <!-- Hero -->
-    <div class="hero">
-      <p class="hero-eyebrow">Now available on the App Store</p>
-      <h1>Find stillness.<br><em>Find peace.</em></h1>
-      <p>The Secret Place is a Christian meditation app built for daily moments of quiet — guided breathwork, prayer, Scripture contemplation, sleep soundscapes, and a silent Selah timer.</p>
-      <div class="hero-cta">
-        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">
-          ⬇ Download on the App Store
-        </a>
-        <a href="listen.html" class="btn-secondary">Try a Free Session</a>
+    <!-- ─── HERO ─── -->
+    <header class="hero-v2">
+      <div class="hero-v2-copy">
+        <span class="hero-v2-eyebrow">Now on the App Store</span>
+        <h1 class="display">A quiet place to <em>begin again.</em></h1>
+        <p class="lede">Guided Christian meditations for prayer, breath, rest, and stillness. Every track written and recorded by hand.</p>
+        <div class="hero-actions">
+          <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="app-store-badge" target="_blank" rel="noopener" aria-label="Download The Secret Place on the App Store">
+            <img src="images/app-store-badge.svg" alt="Download on the App Store" width="180" height="60" />
+          </a>
+          <!-- ANDROID LAUNCH: uncomment when live on Google Play -->
+          <!--
+          <a href="https://play.google.com/store/apps/details?id=com.thesecretplace.app" class="google-play-badge" target="_blank" rel="noopener" aria-label="Get The Secret Place on Google Play">
+            <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="180" height="60" />
+          </a>
+          -->
+          <a href="listen.html" class="link-text">Or try a session →</a>
+        </div>
       </div>
 
-      <!-- Android coming soon -->
+      <div class="hero-v2-stage">
+        <div class="device device--peek" aria-hidden="true">
+          <img src="images/screens/2_library.png" alt="" />
+        </div>
+        <div class="device device--hero">
+          <img src="images/screens/1_home.png" alt="The Secret Place app home screen" />
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ─── PRACTICE — 3 alternating phone + copy rows ─── -->
+    <section class="stage practice" aria-labelledby="practice-heading">
+      <span class="eyebrow">The Practice</span>
+      <h2 id="practice-heading" class="display display--sm">Built for how you actually <em>show up.</em></h2>
+
+      <div class="practice-row">
+        <div class="practice-visual">
+          <div class="device">
+            <img src="images/screens/3_player.png" alt="Player screen with a meditation playing" />
+          </div>
+        </div>
+        <div class="practice-copy">
+          <span class="eyebrow">Listen</span>
+          <h2>Sit with <em>one breath.</em></h2>
+          <p class="body">Guided sessions for prayer, breathwork, Scripture, and sleep. No autoplay queues, no algorithmic feed — just one voice, one practice at a time.</p>
+        </div>
+      </div>
+
+      <div class="practice-row practice-row--flip">
+        <div class="practice-visual">
+          <div class="device">
+            <img src="images/screens/4_selah.png" alt="Selah silent timer with ambient sound" />
+          </div>
+        </div>
+        <div class="practice-copy">
+          <span class="eyebrow">Be still</span>
+          <h2>Silence has a <em>timer.</em></h2>
+          <p class="body">Selah is the quiet middle of the app — a silent timer with optional ambient sound and a soft bell. Sometimes the meditation is no words at all.</p>
+        </div>
+      </div>
+
+      <div class="practice-row">
+        <div class="practice-visual">
+          <div class="device">
+            <img src="images/screens/6_stats.png" alt="Insights and progress" />
+          </div>
+        </div>
+        <div class="practice-copy">
+          <span class="eyebrow">Return</span>
+          <h2>Practice that <em>compounds.</em></h2>
+          <p class="body">A quiet record of streaks, sessions, and a fresh insight each day — tailored to the practice you're already in. Progress without performance.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─── LIBRARY MARQUEE ─── -->
+    <section class="library" aria-labelledby="library-heading">
+      <div class="library-header">
+        <span class="eyebrow">The Library</span>
+        <h2 id="library-heading" class="display display--sm">A growing collection of <em>original sessions.</em></h2>
+        <p class="body">New meditations added regularly by Cassia — a meditation writer and musician who records every track by hand. No stock audio. No filler.</p>
+      </div>
+
+      <div class="library-track" role="list">
+        <div class="library-card" role="listitem">
+          <img src="images/library/lavender-field.jpg" alt="Lavender field" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Breathwork</span><span class="name">Box breath in a lavender field</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/sunrise-trees.jpg" alt="Sunrise through trees" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Morning</span><span class="name">Begin again at first light</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/starry-lake.jpg" alt="Starry night over a lake" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Sleep</span><span class="name">Permission to rest</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/prayer-hands.jpg" alt="Hands in prayer" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Prayer</span><span class="name">Waiting on the Lord</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/flowing-stream.jpg" alt="Flowing stream" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Soundscape</span><span class="name">Healing waters</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/bible-light.jpg" alt="Open Bible in warm light" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Scripture</span><span class="name">Meeting Jesus by the river</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/misty-forest.jpg" alt="Misty forest" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Stress Relief</span><span class="name">A body scan in the fog</span></div>
+        </div>
+        <div class="library-card" role="listitem">
+          <img src="images/library/calm-lake.jpg" alt="Calm lake at dawn" loading="lazy" />
+          <div class="library-card-meta"><span class="cat">Evening</span><span class="name">Set down the day</span></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─── SELAH — cream section ─── -->
+    <section class="section-cream">
+      <div class="stage">
+        <div class="selah-stage">
+          <div>
+            <span class="eyebrow" style="color: var(--ink-soft);">Selah</span>
+            <h2 class="display display--sm">Hebrew for <em>pause and rest.</em></h2>
+            <p class="body" style="color: var(--ink-soft);">Sometimes the practice is no words at all — just a timer, a soft bell, and the room you're already in. Try Selah free in your browser.</p>
+            <div style="margin-top: 32px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
+              <a href="selah.html" class="btn-primary" style="background: var(--ink); color: var(--cream);">Open the timer</a>
+              <a href="listen.html" class="link-text" style="color: var(--ink); border-color: rgba(26,22,20,0.3);">Or hear a session →</a>
+            </div>
+          </div>
+          <div class="selah-ring-xl">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(26,22,20,0.12)" stroke-width="3"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#1A1614" stroke-width="3"
+                stroke-dasharray="326.7" stroke-dashoffset="82"
+                stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="selah-ring-xl-label" style="color: var(--ink);">10:00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─── Android coming soon — subtle ─── -->
+    <div class="stage stage--tight" style="text-align: center;">
       <div class="android-soon">
-        <span class="android-soon-badge">✦ Android coming soon</span>
+        <span class="android-soon-badge">Android coming soon</span>
         <p>The Secret Place is in final testing for Google Play. iOS is live today.</p>
       </div>
     </div>
 
-    <!-- Scroll Animation Section -->
-    <section class="scroll-scene" id="scrollScene">
-      <div class="scroll-scene-inner">
 
-        <!-- Left: sticky image frame, GSAP animates it -->
-        <div class="scene-left">
-          <div class="scene-img-wrap" id="sceneWrap">
-            <img class="scene-img" id="sImg0" src="images/appicon.png"             alt="The Secret Place app" />
-            <img class="scene-img" id="sImg1" src="images/floatingWaterCandles.jpg" alt="Prayer and stillness" />
-            <img class="scene-img" id="sImg2" src="images/morningBeach.jpg"         alt="Morning meditation" />
-          </div>
-        </div>
-
-        <!-- Right: 3 panels, each 100vh, text fades in as you scroll -->
-        <div class="scene-right">
-
-          <div class="scene-panel" id="sPanel0">
-            <p class="section-label">The App</p>
-            <h2 class="scene-heading">Your daily<br><em>sanctuary.</em></h2>
-            <p class="scene-body">The Secret Place is a Christian meditation app built for real moments of quiet. Guided breathwork, prayer, Scripture, sleep — every track written and recorded by hand.</p>
-            <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-               class="btn-secondary" target="_blank" rel="noopener">Download on iOS ↗</a>
-          </div>
-
-          <div class="scene-panel" id="sPanel1">
-            <p class="section-label">Prayer &amp; Stillness</p>
-            <h2 class="scene-heading">Come as<br><em>you are.</em></h2>
-            <p class="scene-body">Scripture-rooted meditations for prayer, contemplation, and waiting on God. Whether you have 1 minute or 30, there's a place for you here.</p>
-            <blockquote class="scene-quote">
-              "The Lord will fight for you.<br>You need only to be still."
-              <cite>— Exodus 14:14</cite>
-            </blockquote>
-          </div>
-
-          <div class="scene-panel" id="sPanel2">
-            <p class="section-label">Growing Library</p>
-            <h2 class="scene-heading">Everything<br><em>you need.</em></h2>
-            <p class="scene-body">New meditations added regularly. Morning, breathwork, sleep, prayer, stress relief, soundscapes — plus a free Selah timer and daily insights.</p>
-            <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884"
-               class="btn-primary" target="_blank" rel="noopener">Start Free 7-Day Trial</a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- Features -->
-    <section>
-      <p class="section-label">What's Inside</p>
-      <h2 class="section-title">Everything you need for a daily practice</h2>
-      <p class="section-body">Guided sessions across multiple categories, new meditations added regularly by Cassia — a meditation writer and musician who records every track by hand.</p>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">☀️</div>
-          <h3>Morning</h3>
-          <p>Start your day grounded. Guided sessions to set a calm, intentional tone before the world gets loud.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💨</div>
-          <h3>Breathwork</h3>
-          <p>Box breathing, physiological sighs, and guided breath sessions to calm your nervous system fast.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌿</div>
-          <h3>Stress Relief</h3>
-          <p>Body scans, somatic exercises, and heart-coherence practices for when the weight feels heavy.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌊</div>
-          <h3>Soundscapes</h3>
-          <p>Ocean waves, rain, and forest nights — pure ambient sound for focus, rest, or background calm.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌙</div>
-          <h3>Sleep</h3>
-          <p>Wind-down sessions and permission to rest — guided meditations for the end of a long day.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🙏</div>
-          <h3>Prayer</h3>
-          <p>Scripture-based contemplative sessions rooted in Christian tradition. Come as you are.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
-          <h3>Selah Timer</h3>
-          <p>Set a silent timer with optional ambient sound. Pause, breathe, and be still — no words required.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📖</div>
-          <h3>Daily Insights</h3>
-          <p>A fresh spiritual insight each day, tailored to the category you're practicing — science-backed and Scripture-rooted.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📓</div>
-          <h3>Journal Your Intentions</h3>
-          <p>Set an intention before you sit. Write what you're bringing to the stillness — and what you hope to leave behind.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- Selah callout -->
-    <section class="selah-callout">
-      <div class="selah-callout-inner">
-        <div>
-          <p class="section-label">Free to Try</p>
-          <h2 class="section-title" style="margin-bottom:12px;">Selah — Hebrew for <em style="color:var(--gold);font-style:italic;">pause and rest</em></h2>
-          <p class="section-body">Sometimes you don't need words. Just time. The Selah timer lets you sit in silence with gentle ambient sound and a soft bell at the end. Try it free right here in your browser.</p>
-          <a href="selah.html" class="btn-primary" style="margin-top:28px;display:inline-flex;">Open Selah Timer</a>
-        </div>
-        <div class="selah-preview">
-          <div class="selah-ring-preview">
-            <svg viewBox="0 0 120 120" width="120" height="120">
-              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(184,169,212,0.12)" stroke-width="6"/>
-              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--gold)" stroke-width="6"
-                stroke-dasharray="326.7" stroke-dashoffset="82"
-                stroke-linecap="round" transform="rotate(-90 60 60)"/>
-            </svg>
-            <div class="selah-ring-label">10:00</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- About -->
-    <section>
-      <p class="section-label">Thoughtfully Made</p>
-      <h2 class="section-title">Built for real moments of quiet</h2>
-      <p class="section-body">The Secret Place was created by Stephanie Dugas, an indie iOS developer, and Cassia — the meditation writer and musician behind every recording. All audio is original, written and recorded by hand. No stock tracks, no filler content.</p>
-      <br/>
-      <p class="section-body">New meditations are added regularly as Cassia creates them. Categories expand over time — Affirmations and Mental Training are coming soon.</p>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- CTA -->
-    <section style="text-align: center;">
-      <p class="section-label">Get Started</p>
-      <h2 class="section-title">Your secret place is waiting.</h2>
-      <p class="section-body" style="margin: 0 auto 36px;">Free 7-day trial, then $4.99/month. No ads, no noise.</p>
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="btn-primary" target="_blank" rel="noopener">Download on the App Store</a>
-        <a href="listen.html" class="btn-secondary">Try a Free Session First</a>
+    <!-- ─── CLOSING ─── -->
+    <section class="closer">
+      <span class="eyebrow">Begin</span>
+      <h2 class="display">Your secret place <em>is waiting.</em></h2>
+      <p class="body" style="margin: 0 auto 36px;">Free 7-day trial, then $4.99 / month. No ads. No noise.</p>
+      <div class="actions">
+        <a href="https://apps.apple.com/us/app/the-secret-place-app/id6761489884" class="app-store-badge" target="_blank" rel="noopener" aria-label="Download The Secret Place on the App Store">
+          <img src="images/app-store-badge.svg" alt="Download on the App Store" width="180" height="60" />
+        </a>
+        <!-- ANDROID LAUNCH: uncomment when live on Google Play -->
+        <!--
+        <a href="https://play.google.com/store/apps/details?id=com.thesecretplace.app" class="google-play-badge" target="_blank" rel="noopener" aria-label="Get The Secret Place on Google Play">
+          <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="180" height="60" />
+        </a>
+        -->
+        <a href="listen.html" class="link-text">Try a session first →</a>
       </div>
     </section>
 
@@ -270,62 +281,6 @@
       <li><a href="terms.html">Terms of Use</a></li>
     </ul>
   </footer>
-
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    const wrap  = document.getElementById('sceneWrap');
-    const img0  = document.getElementById('sImg0');
-    const img1  = document.getElementById('sImg1');
-    const img2  = document.getElementById('sImg2');
-
-    // ── Image 0 → 1 crossfade: scrubbed to panel 1 entering ──
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '#sPanel1',
-        start: 'top 80%',
-        end:   'top 20%',
-        scrub: 1.2,
-      }
-    })
-    .to(img0,  { opacity: 0, scale: 1.06 }, 0)
-    .to(img1,  { opacity: 1 },              0)
-    // frame shape: rounded-square → circle
-    .to(wrap,  { borderRadius: '50%' },     0);
-
-    // ── Image 1 → 2 crossfade: scrubbed to panel 2 entering ──
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '#sPanel2',
-        start: 'top 80%',
-        end:   'top 20%',
-        scrub: 1.2,
-      }
-    })
-    .to(img1,  { opacity: 0, scale: 1.06 }, 0)
-    .to(img2,  { opacity: 1 },              0)
-    // frame shape: circle → rounded card
-    .to(wrap,  { borderRadius: '16px' },    0);
-
-    // ── Panel text: each fades + slides up as it enters ──
-    ['#sPanel0','#sPanel1','#sPanel2'].forEach(id => {
-      gsap.fromTo(id,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0, duration: 1,
-          scrollTrigger: {
-            trigger: id,
-            start: 'top 75%',
-            end:   'top 40%',
-            scrub: 1,
-          }
-        }
-      );
-    });
-  </script>
 
 </body>
 </html>
