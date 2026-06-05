@@ -1441,7 +1441,7 @@ footer p { font-size: 13px; color: var(--muted); }
   .hero-v2-copy .lede { margin-left: auto; margin-right: auto; }
   .hero-v2 .hero-actions { justify-content: center; }
   .hero-v2-stage { height: auto; min-height: 460px; order: -1; }
-  .device--hero { width: 240px; transform: rotate(-2deg); }
+  .device--hero { width: 240px; transform: none; }
   .device--peek { display: none; }
 
   .practice-row {

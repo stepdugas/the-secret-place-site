@@ -47,14 +47,19 @@
   </script>
 
   <link rel="icon" type="image/png" href="og-image.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <nav>
     <a class="nav-brand" href="index.html">
-      <span class="sparkle">✦</span>
-      <span>The Secret Place Meditation App</span>
+      <span>The Secret Place</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -69,10 +74,9 @@
 
       <!-- Header -->
       <div class="timer-header">
-        <p class="hero-eyebrow">Free to Use</p>
-        <h1 class="timer-title">Selah — Free Meditation Timer</h1>
-        <p class="timer-subtitle">Hebrew for <em>pause and rest</em></p>
-        <p class="timer-desc">Sometimes you don't need words. Set your time, choose a sound, and simply be still.</p>
+        <span class="eyebrow">Free to Use</span>
+        <h1 class="display display--sm">Hebrew for <em>pause and rest.</em></h1>
+        <p class="lede" style="margin-left:auto;margin-right:auto;text-align:center;">Sometimes the practice is no words at all. Set your time, choose a sound, and be still.</p>
       </div>
 
       <!-- Timer Card -->
@@ -129,7 +133,6 @@
       <div class="timer-completion" id="completionOverlay" style="display:none;">
         <div class="completion-inner">
           <div class="completion-glow"></div>
-          <p class="completion-icon">✦</p>
           <h2 class="completion-title">Well done.</h2>
           <p class="completion-body">You took time to be still. That matters more than you know.</p>
           <button class="btn-primary" id="completionRestart" style="margin-top:8px;">Begin Again</button>
